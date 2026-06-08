@@ -34,7 +34,26 @@ impl Default for Counter {
         Counter::new()
     }
 }
- */
+*/
+
+/* // =========================================================================
+// APPROACH 3: THE EXTERNAL MACRO WAY (Commented Out)
+// =========================================================================
+// Since standard Rust doesn't allow '#[derive(Default == 42)]', the community 
+// created the 'smart-default' crate. This procedural macro intercepts the 
+// compilation and writes the manual 'impl Default' for you under the hood.
+//
+// NOTE: To use this, you must add 'smart-default = "0.7"' to your Cargo.toml 
+// dependencies and uncomment the lines below (while commenting out Approach 1).
+
+use smart_default::SmartDefault;
+
+#[derive(SmartDefault)]
+struct Counter {
+    #[default = 42]
+    value: i64,
+}
+*/
 
 #[derive(Debug, Clone)]
 enum Message {
@@ -66,6 +85,6 @@ fn view(counter: &Counter) -> Element<'_, Message> {
 fn main() -> iced::Result {
     // 'iced::run' implicitly requires the state ('Counter') to implement 'Default'.
     // Currently, it uses the generated macro from Approach 1, starting the app at 0.
-    // If you swap them, it would use Approach 2 and start the app at 42.
+    // If you activate Approach 3, it will automatically compile into a 42-based default state!
     iced::run(update, view)
 }
