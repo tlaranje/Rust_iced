@@ -16,7 +16,7 @@ fn view(_state: &()) -> Element<'_, String> {
             .line_height(1.5)
             .width(Fill)
             .center(),
-        ui::Button::new("Play", 150, 50, "Hi").view()
+        ui::Button::new("Play", 150, 50, "Hi", 10.0).view()
     ]
     .width(Fill)
     .height(Fill)
