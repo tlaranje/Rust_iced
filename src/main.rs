@@ -1,47 +1,22 @@
+use iced::alignment::Horizontal;
+use iced::widget::{column, text};
 use iced::{Element, Font};
-use iced::widget::{button, column, text, container};
 use iced::Length::Fill;
-use smart_default::SmartDefault;
-use iced::alignment::{Horizontal};
-use iced::Length;
+use iced_test::ui;
 
-#[derive(SmartDefault)]
-struct Counter {
-    #[default = 42]
-    value: i64,
+fn update(_state: &mut (), _message: String) {
+    println!("{}", _message)
 }
 
-#[derive(Debug, Clone)]
-enum Message {
-    Increment,
-    Decrement,
-}
-
-fn update(counter: &mut Counter, message: Message) {
-    match message {
-        Message::Increment => counter.value += 1,
-        Message::Decrement => counter.value -= 1,
-    }
-}
-
-fn view(counter: &Counter) -> Element<'_, Message> {
+fn view(_state: &()) -> Element<'_, String> {
     column![
-        text("- Hello there!\n- General Kenobi!")
+        text("Hello World!")
             .font(Font::MONOSPACE)
             .size(30)
             .line_height(1.5)
-            .width(Fill) 
+            .width(Fill)
             .center(),
-
-        button(
-            container(
-                text("Play").size(30)
-            )
-            .center_x(Length::Fill)
-            .center_y(Length::Fill)
-        ).width(150).height(50).on_press(Message::Increment),
-        text(counter.value).size(24),
-        button("Exit").on_press(Message::Decrement).width(150).height(50),
+        ui::Button::new("Play", 150, 50, "Hi").view()
     ]
     .width(Fill)
     .height(Fill)
